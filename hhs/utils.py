@@ -1,4 +1,20 @@
+import os
+import json
 import random
+import webbrowser
+
+
+def open_in_browser(html):
+    """ Load passed html into file and open it in web browser
+
+    :param html: str
+    :return:
+    """
+    path = os.path.abspath('temp.html')
+    with open(path, 'w') as f:
+        f.write(html)
+    url = 'file://' + path
+    webbrowser.open(url)
 
 
 AGENTS = [
@@ -154,3 +170,12 @@ AGENTS = [
 
 def get_random_user_agent():
     return random.choice(AGENTS)
+
+
+def serializer(raw_string):
+    try:
+        return json.loads(raw_string)
+    except ValueError as ve:
+        print("Serializer JSON error: {0}".format(ve))
+
+    return False
