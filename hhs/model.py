@@ -1,7 +1,15 @@
 
 class Vacancy(object):
-    def __init__(self, ):
-        pass
+    def __init__(self, url, archived, area, employer, name, salary, created_at, published_at):
+
+        self.url = url
+        self.archived = archived
+        self.area = area
+        self.employer = employer
+        self.name = name
+        self.salary = salary
+        self.created_at = created_at
+        self.published_at = published_at
 
 
 class SearchQuery(object):
