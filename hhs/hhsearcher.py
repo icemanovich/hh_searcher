@@ -11,16 +11,24 @@ class HHSearcher(object):
 
     url = 'https://api.hh.ru'
 
-    def __init__(self, delay=60):
+    def __init__(self, delay=60, **kwargs):
         self.delay = delay
+        self.salary = ''
+        if kwargs['salary']:
+            self.salary = kwargs['salary']
 
     def search(self, text=''):
+        """ Search HH vacancies and return Vacancy model via generator
+
+        :param text:
+        :return:
+        """
         url = self.url + '/vacancies'
         params = {
             'text': text,
             'specialization': 1,
             'area': 66,
-            'salary': 90000,
+            'salary': self.salary,
             'currency_code': 'RUR',
             'order_by': 'relevance',
             'search_period': 7,
@@ -32,16 +40,10 @@ class HHSearcher(object):
         data = self.__request(url, params)
         print(data)
 
-        '''
-        TODO:: Create Vacancy models and send into telegram !!!!!!
-        '''
+        for item in data['items']:
+            yield Vacancy.from_dict(item)
 
-        # vacancies = []
-        # for item in data['items']:
-        #     v = Vacancy()
-
-
-    def get_areas(self):
+    def get_areas(self) -> dict:
         areas = self.__request(self.url + '/areas')
         return areas
 
@@ -51,7 +53,7 @@ class HHSearcher(object):
         :param url: str
         :param params: dict - additional parameters to request
         :param method: str - default GET
-        :return: str
+        :return: dict
         """
 
         if method.lower() == 'get':
@@ -73,23 +75,3 @@ class HHSearcher(object):
         return {
             'User-Agent': utils.get_random_user_agent()
         }
-
-
-
-    '''
-    # https://nn.hh.ru/search/vacancy?
-    text=Python
-    &specialization=1
-    &area=66
-    &salary=90000
-    &currency_code=RUR
-    &experience=doesNotMatter
-    &order_by=relevance
-    &search_period=7
-    &items_on_page=100
-    &no_magic=true
-    '''
-
-    '''
-    https://nn.hh.ru/search/vacancy?text=Python&specialization=1&area=66&salary=90000&currency_code=RUR&experience=doesNotMatter&schedule=fullDay&schedule=remote&order_by=relevance&search_period=&items_on_page=50&no_magic=true
-    '''
