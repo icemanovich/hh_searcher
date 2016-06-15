@@ -4,7 +4,7 @@ from hhs.hhsearcher import HHSearcher
 if __name__ == '__main__':
 
     scanner = HHSearcher()
-    v = scanner.search('Python')
+    v = scanner.search('Python', salary=9000)
 
     for i in v:
         print(i)

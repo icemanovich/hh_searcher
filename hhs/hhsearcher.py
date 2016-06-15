@@ -11,24 +11,21 @@ class HHSearcher(object):
 
     url = 'https://api.hh.ru'
 
-    def __init__(self, delay=60, **kwargs):
+    def __init__(self, delay=60):
         self.delay = delay
-        self.salary = ''
-        if kwargs['salary']:
-            self.salary = kwargs['salary']
 
-    def search(self, text=''):
+    def search(self, text='', **kwargs):
         """ Search HH vacancies and return Vacancy model via generator
 
         :param text:
         :return:
         """
         url = self.url + '/vacancies'
+
         params = {
             'text': text,
             'specialization': 1,
             'area': 66,
-            'salary': self.salary,
             'currency_code': 'RUR',
             'order_by': 'relevance',
             'search_period': 7,
@@ -37,6 +34,13 @@ class HHSearcher(object):
             'per_page': 100,
             'page': 0
         }
+
+        try:
+            if kwargs['salary']:
+                params.update({'salary': kwargs['salary']})
+        except KeyError:
+            pass
+
         data = self.__request(url, params)
         print(data)
 

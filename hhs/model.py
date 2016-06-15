@@ -11,6 +11,8 @@ class Vacancy(object):
         self.created_at = created_at
         self.published_at = published_at
 
+        self.currency = 'RUR'
+
     def __repr__(self):
         """ Detailed model view
 
@@ -34,11 +36,19 @@ class Vacancy(object):
         """
         return '%s [ Salary: %s]: - %s (%s), %s' % (
             self.name,
-            self.salary,
+            self.salary_info(),
             self.employer['name'],
             self.employer['alternate_url'],
             self.url
         )
+
+    def salary_info(self):
+        value = self.salary
+        if self.salary:
+            self.currency = self.salary['currency']
+            # value = [self.salary['from'], self.salary['to'], self.currency]
+            value = '{0}-{1} {2}'.format(self.salary['from'], self.salary['to'], self.currency)
+        return value
 
     @classmethod
     def from_dict(cls, data: dict) -> object:
