@@ -7,7 +7,7 @@ if __name__ == '__main__':
     scanner = HHSearcher()
     bot = Client(config.TELEGRAM_TOKEN, config.CHANNEL_NAME)
 
-    v = scanner.search('Python', salary=9000)
+    v = scanner.search('Python', salary=9000, period=7)
     for i in v:
         print(i)
         bot.send_posts(i)

@@ -36,11 +36,7 @@ class HHSearcher(object):
             'page': 0
         }
 
-        try:
-            if kwargs['salary']:
-                params.update({'salary': kwargs['salary']})
-        except KeyError:
-            pass
+        params.update(kwargs)
 
         data = self.__request(url, params)
         for item in data['items']:

@@ -34,7 +34,7 @@ class Vacancy(object):
 
         :return: object
         """
-        return '%s [ Salary: %s]: - %s, %s' % (
+        return '%s [Salary: %s]: - %s, \n %s' % (
             self.name,
             self.salary_info(),
             self.employer['name'],
