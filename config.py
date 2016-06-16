@@ -8,3 +8,4 @@ load_dotenv(dotenv_path)
 
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 CHANNEL_NAME = os.environ.get('CHANNEL_NAME', '@HHSearcherBot')
+SCAN_DELAY = os.environ.get('SCAN_DELAY', 60)

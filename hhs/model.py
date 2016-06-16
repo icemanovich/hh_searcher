@@ -34,11 +34,10 @@ class Vacancy(object):
 
         :return: object
         """
-        return '%s [ Salary: %s]: - %s (%s), %s' % (
+        return '%s [ Salary: %s]: - %s, %s' % (
             self.name,
             self.salary_info(),
             self.employer['name'],
-            self.employer['alternate_url'],
             self.url
         )
 
@@ -46,7 +45,6 @@ class Vacancy(object):
         value = self.salary
         if self.salary:
             self.currency = self.salary['currency']
-            # value = [self.salary['from'], self.salary['to'], self.currency]
             value = '{0}-{1} {2}'.format(self.salary['from'], self.salary['to'], self.currency)
         return value
 

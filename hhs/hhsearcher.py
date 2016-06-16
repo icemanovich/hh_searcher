@@ -1,6 +1,7 @@
 import requests
 from hhs import utils
 from hhs.model import Vacancy
+import logging
 
 
 class HHSearcher(object):
@@ -42,8 +43,6 @@ class HHSearcher(object):
             pass
 
         data = self.__request(url, params)
-        print(data)
-
         for item in data['items']:
             yield Vacancy.from_dict(item)
 
@@ -66,7 +65,7 @@ class HHSearcher(object):
             res = requests.post(url, params, headers=self.__get_headers())
 
         if res.status_code != 200:
-            print("Request error:: {0}:{1}".format(res.status_code, res.text))
+            logging.error("Request error:: {0}:{1}".format(res.status_code, res.text))
             return False
         return res.json()
 

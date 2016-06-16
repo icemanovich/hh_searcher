@@ -2,6 +2,7 @@ import os
 import json
 import random
 import webbrowser
+import logging
 
 
 def open_in_browser(html):
@@ -176,6 +177,6 @@ def serializer(raw_string):
     try:
         return json.loads(raw_string)
     except ValueError as ve:
-        print("Serializer JSON error: {0}".format(ve))
+        logging.error("Serializer JSON error: {0}".format(ve))
 
     return False
