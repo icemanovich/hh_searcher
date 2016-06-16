@@ -9,6 +9,10 @@ if __name__ == '__main__':
 
     v = scanner.search('Python', salary=9000, period=7)
     for i in v:
-        print(i)
+        # print(i)
         bot.send_posts(i)
-        break
+
+
+    '''
+    TODO:: return random 5 vacancies
+    '''
